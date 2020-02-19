@@ -1,0 +1,104 @@
+create database Order_item;
+use Order_item;
+
+/* create customer table */
+create table customer
+(
+cno int,
+cname varchar(20),
+city varchar(20),
+primary key(cno)
+);
+/* insert value to the customer table */
+insert into customer values(111,'pramod','hassan');
+insert into customer values(222,'akash','shivamogga');
+insert into customer values(333,'manjunath','hassan');
+insert into customer values(444,'sandeep','arasikere');
+insert into customer values(555,'abhishek','bengalore');
+
+select * from customer;
+
+/* create order table */
+create table Order_c
+(
+order_no int,
+Odate date,
+cno int,
+order_amunt int,
+primary key(order_no),
+foreign key(cno)references customer(cno));
+
+/* insert values to order_cus table */
+insert into Order_c values(100,'2020-02-02',111,250);
+insert into Order_c values(200,'2020-06-07',222,250);
+insert into Order_c values(300,'2020-04-05',333,250);
+insert into Order_c values(400,'2020-11-11',444,250);
+insert into Order_c values(500,'2020-12-12',555,250);
+
+select * from Order_c;
+
+/* creat item table */
+create table item
+(
+item_no int,
+price int,
+primary key(item_no));
+
+/* insert values to item table */
+insert into item values(101,30);
+insert into item values(102,40);
+insert into item values(103,50);
+insert into item values(104,60);
+insert into item values(105,70);
+
+/* create table  order item*/
+create table order_item
+(
+order_no int,
+item_no int,
+qty int,
+primary key(order_no,item_no),
+foreign key(order_no) references Order_c(order_no),
+foreign key(item_no) references item(item_no));
+
+/* insert values to order_item table */
+insert into order_item values(100,101,200);
+insert into order_item values(200,102,300);
+insert into order_item values(300,103,400);
+insert into order_item values(400,104,500);
+insert into order_item values(500,105,600);
+
+select * from order_item;
+
+/* create table whare house */
+create table where_house
+(
+wno int,
+city varchar(29),
+primary key(wno));
+
+/* insert values to  whwre_house table */
+insert into where_house values(211,'hassan');
+insert into where_house values(212,'ballari');
+insert into where_house values(213,'rayachuru');
+insert into where_house values(214,'gadag');
+insert into where_house values(215,'mandya');
+/* create table shipment  */
+create table shipment 
+(
+order_no int,
+wno int,
+odate date,
+primary key(order_no,wno),
+foreign key(wno)references where_house(wno),
+foreign key(order_no) references order_item(order_no));
+
+/* insert values to  shipment table */
+insert into shipment values(100,211,'2020-03-03');
+insert into shipment values(200,212,'2020-04-04');
+insert into shipment values(300,213,'2020-05-05');
+insert into shipment values(400,214,'2020-06-06');
+insert into shipment values(500,215,'2020-07-07');
+select *from shipment;
+
+
